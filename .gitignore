@@ -1,0 +1,7 @@
+out/
+*.json.local
+.env
+__pycache__/
+*.pyc
+.venv/
+state.json
