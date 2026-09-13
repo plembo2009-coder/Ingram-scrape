@@ -29,20 +29,45 @@ unverified — see "Expect to adjust selectors".
 
 ## Running it
 
+On a Linux box (headless is fine — see "Headless" below):
+
 ```bash
-pip install -r requirements.txt
-playwright install chromium          # skip if Chromium is already provisioned
-
-export INGRAM_USER='you@example.com'
-export INGRAM_PASS='...'
-
-python probe.py                      # headless
-python probe.py --headed --slow      # watch it drive the browser
-python probe.py --term cyberdata     # search term (default: cyberdata)
+git clone -b claude/ingram-data-extraction-test-0tphpd \
+  https://github.com/plembo2009-coder/Ingram-scrape.git
+cd Ingram-scrape
+./setup.sh
 ```
 
-Credentials are read from the environment only. Do not commit them — `.env` is
-gitignored.
+`setup.sh` creates a virtualenv, installs the Python packages, downloads
+Chromium plus the system libraries it needs, and verifies the browser actually
+launches before it reports success. It is safe to re-run.
+
+Then:
+
+```bash
+source .venv/bin/activate
+export INGRAM_USER='you@example.com'
+read -rsp 'Ingram password: ' INGRAM_PASS && export INGRAM_PASS && echo
+python probe.py
+```
+
+Using `read -rsp` keeps the password out of your shell history. Options:
+`--term cyberdata` sets the search term, `--headed --slow` shows the browser on
+a machine with a display, `--timeout` adjusts the per-step wait in ms.
+
+### Headless
+
+The probe drives a real Chromium, but with no window drawn. It still runs all
+JavaScript and builds the full DOM, and it still renders internally — the
+screenshots in `out/` are true images of the pages. A server with no display is
+a perfectly normal place to run this; `--headed` is the only thing that needs a
+display (or `xvfb-run`).
+
+The one thing headless cannot do is let a human interact mid-run. If the portal
+demands an MFA code or a CAPTCHA, the probe reports "did not reach dashboard"
+and saves a screenshot. The workaround is to log in once in a desktop browser,
+export the session cookies to `out/storage_state.json`, and let the probe reuse
+them — it writes that same file on every successful login.
 
 ## What it does
 
@@ -80,6 +105,27 @@ even where a selector guess misses:
 | `07_network_xhr.json` | Every XHR/fetch call observed |
 | `08_verdict.json` | Machine-readable summary of all findings |
 | `storage_state.json` | Session cookies, reusable to skip re-login |
+
+## Data on disk
+
+Everything stays on the machine that runs it. `out/` holds probe artifacts and
+is overwritten each run; `data/` is where the eventual scraper will write, and
+both are gitignored.
+
+```
+out/     probe artifacts - see the table above (overwritten each run)
+data/    scraper output, one directory per run:
+           products.csv / products.xlsx    one row per product
+           images/<sku>.jpg                downloaded product images
+           raw/                            raw API JSON or HTML, for re-parsing
+```
+
+Keeping `raw/` matters: if a field turns out to be mapped wrong, it can be
+re-parsed without hitting the site again. The full set is small — ~159 products
+with images is on the order of tens of megabytes.
+
+`out/storage_state.json` holds live session cookies. It is gitignored; do not
+commit it or paste it anywhere.
 
 ## Expect to adjust selectors
 
