@@ -1,6 +1,6 @@
 # Media page — planning notes
 
-Status: design mockup only. Nothing is built yet.
+Status: first working version built (`server.py` + `static/index.html`). See README.md to set it up on mary.
 
 - Mockup: `mockup.html` (open it in a browser; sample products and files)
 - Published preview: https://claude.ai/artifact/TfVqKnDkZb9mhh5Rb8UAY6
@@ -16,11 +16,14 @@ Status: design mockup only. Nothing is built yet.
 - Top of page: sort by **01 number** (default) or **Function**, and a filter for
   Speakers / Intercoms / Servers. Search by number or name.
 
-## Open questions
+## Decisions
 
-1. How does the site get each product's name and function? A folder name only
-   gives the number. Option: a small info file per folder, or one spreadsheet
-   (01 number, name, function).
-2. Where will it run: one PC, an office-network server, or the public internet?
-3. Which file types are in the folders? PDF, images and video preview in a
-   browser; Word/PowerPoint would likely be download-only.
+1. Product names come from a product list file (part number + description)
+   the user will upload. Function (Speakers / Intercoms / Servers) is guessed
+   from the description unless the list has a Function column.
+2. Runs on the office server **mary** (http://mary:8080). No login.
+3. File types: PNG images and PDFs.
+
+## Next
+
+- Try it with the real product list and a few real product folders.

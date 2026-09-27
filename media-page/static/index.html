@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Media page</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  color-scheme:light;
+  --bg:#f3f5f7; --surface:#ffffff; --surface-2:#e9edf1; --ink:#16212b; --ink-2:#4a5866; --ink-3:#6f7c89;
+  --line:#d5dce3; --accent:#0a6f8f; --accent-ink:#ffffff; --accent-soft:#dcedf3;
+  --Speakers:#0a6f8f; --Intercoms:#7a5a12; --Servers:#4d4a8a; --Other:#5b6570;
+  --Speakers-soft:#dcedf3; --Intercoms-soft:#f3ead3; --Servers-soft:#e6e5f4; --Other-soft:#e6e9ec;
+  --paper:#ffffff; --shadow:0 1px 2px rgba(20,35,50,.06),0 6px 20px rgba(20,35,50,.08);
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    color-scheme:dark;
+    --bg:#0f151b; --surface:#17202a; --surface-2:#1f2a35; --ink:#e6edf3; --ink-2:#a9b6c2; --ink-3:#8593a0;
+    --line:#2b3845; --accent:#4cb8d8; --accent-ink:#06202a; --accent-soft:#16323d;
+    --Speakers:#4cb8d8; --Intercoms:#d9b25a; --Servers:#a5a1ea; --Other:#a9b6c2;
+    --Speakers-soft:#16323d; --Intercoms-soft:#33291a; --Servers-soft:#25243f; --Other-soft:#232d37;
+    --paper:#f7f8fa; --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+header.site{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.head-row{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:16px}
+.brand{display:flex;align-items:baseline;gap:12px}
+.brand h1{margin:0;font-size:24px;font-weight:700;letter-spacing:-.01em}
+.count{font-family:var(--mono);font-size:12px;color:var(--ink-3)}
+.search{display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 10px;min-width:0;flex:0 1 300px}
+.search input{border:0;background:transparent;font:inherit;color:var(--ink);outline:none;width:100%;min-width:0}
+.search svg{flex:none;color:var(--ink-3)}
+.controls{display:flex;gap:12px 32px;flex-wrap:wrap;align-items:center;padding-block:0 14px}
+.ctl{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.ctl-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--bg)}
+.seg button{border:0;background:transparent;padding:6px 12px;cursor:pointer;font-size:14px;color:var(--ink-2)}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);font-weight:600}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 12px;cursor:pointer;font-size:14px;color:var(--ink-2);display:inline-flex;align-items:center;gap:6px}
+.chip .dot{width:8px;height:8px;border-radius:50%}
+.chip[aria-pressed="true"]{border-color:var(--ink);color:var(--ink);font-weight:600;background:var(--surface-2)}
+
+main{padding-block:24px 48px}
+.msg{color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;max-width:70ch}
+.msg b{color:var(--ink)}
+.group{margin-bottom:28px}
+.group-h{display:flex;align-items:baseline;gap:10px;margin:8px 0 12px}
+.group-h h2{margin:0;font-size:18px;font-weight:600}
+.group-h span{font-family:var(--mono);font-size:12px;color:var(--ink-3)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;align-items:start}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;cursor:pointer;text-align:left;padding:0;display:flex;flex-direction:column;overflow:hidden;transition:border-color .15s,box-shadow .15s;width:100%}
+.card:hover{border-color:var(--ink-3)}
+.card[aria-expanded="true"]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.thumb{aspect-ratio:4/3;background:var(--paper);display:grid;place-items:center;border-bottom:1px solid var(--line);overflow:hidden}
+.thumb img{width:100%;height:100%;object-fit:contain;padding:8px}
+.thumb .none{font-size:12px;color:#7a8794}
+.meta{padding:10px 12px 12px;display:flex;flex-direction:column;gap:4px}
+.pn{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+.pname{font-size:14px;color:var(--ink-2);line-height:1.35}
+.pname.missing{font-style:italic;color:var(--ink-3)}
+.tagrow{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:4px}
+.tag{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:4px}
+.fcount{font-size:12px;color:var(--ink-3);display:flex;align-items:center;gap:4px;white-space:nowrap}
+.fcount svg{transition:transform .2s}
+.card[aria-expanded="true"] .fcount svg{transform:rotate(180deg)}
+
+.drawer{grid-column:1/-1;background:var(--surface);border:1px solid var(--accent);border-radius:8px;padding:16px;box-shadow:var(--shadow);position:relative}
+.drawer::before{content:"";position:absolute;top:-7px;left:var(--caret,40px);width:12px;height:12px;background:var(--surface);border-left:1px solid var(--accent);border-top:1px solid var(--accent);transform:rotate(45deg)}
+.drawer-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.drawer-h h3{margin:0;font-size:16px;font-weight:600}
+.drawer-h h3 .pn{margin-right:8px}
+.path{font-family:var(--mono);font-size:12px;color:var(--ink-3)}
+.files{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.file{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--line);border-radius:6px;background:var(--bg);cursor:pointer;text-align:left;width:100%}
+.file:hover{border-color:var(--accent);background:var(--accent-soft)}
+.ficon{flex:none;width:34px;height:40px;border-radius:3px;display:grid;place-items:end center;padding-bottom:4px;font-family:var(--mono);font-size:9px;font-weight:600;color:#fff}
+.ft-pdf{background:#b3372d} .ft-png{background:#2e7d4f}
+.finfo{display:flex;flex-direction:column;min-width:0}
+.fkind{font-size:14px;font-weight:600;color:var(--ink)}
+.fname{font-family:var(--mono);font-size:11.5px;color:var(--ink-3);overflow-wrap:anywhere}
+
+.viewer{position:fixed;inset:0;background:rgba(10,18,26,.62);display:flex;align-items:center;justify-content:center;padding:24px 16px;z-index:20}
+.viewer[hidden]{display:none}
+.vbox{background:var(--surface);border-radius:10px;width:min(1000px,100%);height:100%;display:flex;flex-direction:column;box-shadow:var(--shadow);overflow:hidden}
+.vbar{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.vtitle{flex:1 1 200px;min-width:0;display:flex;flex-direction:column}
+.vactions{display:flex;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:7px 12px;cursor:pointer;font-size:14px;font-weight:500;text-decoration:none;color:var(--ink)}
+.btn:hover{border-color:var(--ink-3)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.icon{padding:7px 9px}
+.vbody{background:var(--surface-2);flex:1;min-height:0;display:flex}
+.vbody iframe{border:0;width:100%;height:100%;background:#fff}
+.vbody .img{flex:1;display:flex;align-items:center;justify-content:center;padding:20px;overflow:auto}
+.vbody img{max-width:100%;max-height:100%;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.18)}
+.vfoot{padding:8px 16px;font-family:var(--mono);font-size:12px;color:var(--ink-3);border-top:1px solid var(--line)}
+@media (max-width:600px){.brand h1{font-size:21px}.viewer{padding:0}.vbox{border-radius:0}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <div class="head-row">
+      <div class="brand"><h1>Media page</h1><span class="count" id="count"></span></div>
+      <label class="search" for="q">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Search 01 number or name" autocomplete="off">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="ctl"><span class="ctl-label">Sort by</span>
+        <div class="seg" role="group" aria-label="Sort by">
+          <button aria-pressed="true" data-sort="num">01 number</button>
+          <button aria-pressed="false" data-sort="fn">Function</button>
+        </div>
+      </div>
+      <div class="ctl"><span class="ctl-label">Show</span><div class="chips" id="chips"></div></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap"><div id="banner"></div><div id="list"><p class="msg">Loading products…</p></div></main>
+
+<div class="viewer" id="viewer" hidden>
+  <div class="vbox" role="dialog" aria-modal="true" aria-labelledby="vkind">
+    <div class="vbar">
+      <span class="ficon" id="vicon"></span>
+      <div class="vtitle"><span class="fkind" id="vkind"></span><span class="fname" id="vname"></span></div>
+      <div class="vactions">
+        <button class="btn" id="vprint"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="7"/></svg>Print</button>
+        <a class="btn primary" id="vdl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 21h16"/></svg>Download</a>
+        <button class="btn icon" id="vclose" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      </div>
+    </div>
+    <div class="vbody" id="vbody"></div>
+    <div class="vfoot" id="vpath"></div>
+  </div>
+</div>
+<iframe id="printer" title="print" style="position:absolute;width:0;height:0;border:0;visibility:hidden"></iframe>
+
+<script>
+const ORDER = ["Speakers","Intercoms","Servers"];
+const S = {sort:"num", filter:"All", q:"", open:null, products:[]};
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fnColor = f => ORDER.includes(f) ? f : "Other";
+
+function functions(){
+  const extra = [...new Set(S.products.map(p => p.function))].filter(f => !ORDER.includes(f)).sort();
+  return [...ORDER, ...extra];
+}
+
+function chips(){
+  const opts = ["All", ...functions()];
+  $("#chips").innerHTML = opts.map(f => `<button class="chip" data-f="${esc(f)}" aria-pressed="${S.filter===f}">${f!=="All"?`<span class="dot" style="background:var(--${fnColor(f)})"></span>`:""}${esc(f)}</button>`).join("");
+}
+
+function visible(){
+  const q = S.q.trim().toLowerCase();
+  return S.products
+    .filter(p => S.filter==="All" || p.function===S.filter)
+    .filter(p => !q || p.pn.toLowerCase().includes(q) || p.name.toLowerCase().includes(q))
+    .sort((a,b) => a.pn.localeCompare(b.pn, undefined, {numeric:true}));
+}
+
+function card(p){
+  const n = p.files.length;
+  const c = fnColor(p.function);
+  return `<button class="card" data-pn="${esc(p.pn)}" aria-expanded="${S.open===p.pn}">
+    <div class="thumb">${p.photo ? `<img src="${esc(p.photo)}" alt="" loading="lazy">` : `<span class="none">No photo yet</span>`}</div>
+    <div class="meta"><span class="pn">${esc(p.pn)}</span>
+      <span class="pname${p.name?"":" missing"}">${p.name ? esc(p.name) : "Not in product list"}</span>
+      <div class="tagrow"><span class="tag" style="background:var(--${c}-soft);color:var(--${c})">${esc(p.function)}</span>
+      <span class="fcount">${n} file${n===1?"":"s"} <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></span></div>
+    </div></button>`;
+}
+
+function drawer(p){
+  const body = p.files.length
+    ? `<div class="files">${p.files.map((f,i) => `<button class="file" data-i="${i}"><span class="ficon ft-${f.type}">${f.type.toUpperCase()}</span><span class="finfo"><span class="fkind">${esc(f.label)}</span><span class="fname">${esc(f.name)} · ${esc(f.size)}</span></span></button>`).join("")}</div>`
+    : `<p class="path">${p.folder ? "This folder has no PNG or PDF files yet." : `No folder named ${esc(p.pn)} in the media folder yet.`}</p>`;
+  return `<div class="drawer" id="drawer">
+    <div class="drawer-h"><h3><span class="pn">${esc(p.pn)}</span>${esc(p.name)}</h3>${p.folder?`<span class="path">${esc(p.folder)}/</span>`:""}</div>${body}</div>`;
+}
+
+function render(){
+  const v = visible();
+  $("#count").textContent = `${v.length} of ${S.products.length} products`;
+  let groups = S.sort==="fn"
+    ? functions().map(f => ({h:f, items:v.filter(p => p.function===f)})).filter(g => g.items.length)
+    : [{h:null, items:v}];
+  $("#list").innerHTML = groups.map(g => `<section class="group">${g.h?`<div class="group-h"><h2>${esc(g.h)}</h2><span>${g.items.length}</span></div>`:""}<div class="grid">${g.items.map(card).join("")}</div></section>`).join("")
+    || `<p class="msg">${S.products.length ? "No products match. Clear the search or pick another category." : "No products found. Check that the media folder has 01-number folders in it."}</p>`;
+  placeDrawer();
+}
+
+// Put the drop-down right below the row holding the open card.
+function placeDrawer(){
+  document.getElementById("drawer")?.remove();
+  const c = [...document.querySelectorAll(".card")].find(x => x.dataset.pn===S.open);
+  if(!c) return;
+  const p = S.products.find(x => x.pn===S.open);
+  const row = [...c.parentElement.children].filter(e => e.classList.contains("card") && e.offsetTop===c.offsetTop);
+  row[row.length-1].insertAdjacentHTML("afterend", drawer(p));
+  const d = document.getElementById("drawer");
+  d.style.setProperty("--caret", (c.offsetLeft - d.offsetLeft + c.offsetWidth/2 - 6) + "px");
+  d.querySelectorAll(".file").forEach(b => b.onclick = () => openFile(p, p.files[+b.dataset.i]));
+}
+
+let current = null;
+function openFile(p, f){
+  current = f;
+  $("#vicon").className = `ficon ft-${f.type}`; $("#vicon").textContent = f.type.toUpperCase();
+  $("#vkind").textContent = `${p.pn} · ${f.label}`;
+  $("#vname").textContent = `${f.name} · ${f.size}`;
+  $("#vpath").textContent = decodeURIComponent(f.url.replace(/^\/media\//, ""));
+  $("#vdl").href = f.url + "?download=1";
+  $("#vbody").innerHTML = f.type==="pdf"
+    ? `<iframe src="${esc(f.url)}" title="${esc(f.name)}"></iframe>`
+    : `<div class="img"><img src="${esc(f.url)}" alt="${esc(p.name || p.pn)}"></div>`;
+  $("#viewer").hidden = false; $("#vclose").focus();
+}
+function closeViewer(){ $("#viewer").hidden = true; $("#vbody").innerHTML = ""; }
+
+function printCurrent(){
+  if(!current) return;
+  const fr = $("#printer");
+  if(current.type==="png"){ fr.onload = null; fr.src = current.url.replace(/^\/media\//, "/print/"); return; }
+  fr.onload = () => { try { fr.contentWindow.focus(); fr.contentWindow.print(); } catch(e){ window.open(current.url, "_blank"); } };
+  fr.src = current.url;
+}
+
+document.addEventListener("click", e => {
+  const s = e.target.closest("[data-sort]");
+  if(s){ S.sort = s.dataset.sort; document.querySelectorAll("[data-sort]").forEach(b => b.setAttribute("aria-pressed", b===s)); render(); return; }
+  const f = e.target.closest("[data-f]");
+  if(f){ S.filter = f.dataset.f; chips(); render(); return; }
+  const c = e.target.closest(".card");
+  if(c){ S.open = S.open===c.dataset.pn ? null : c.dataset.pn; document.querySelectorAll(".card").forEach(x => x.setAttribute("aria-expanded", x.dataset.pn===S.open)); placeDrawer(); }
+});
+$("#q").addEventListener("input", e => { S.q = e.target.value; render(); });
+$("#vclose").onclick = closeViewer;
+$("#vprint").onclick = printCurrent;
+$("#viewer").addEventListener("click", e => { if(e.target.id==="viewer") closeViewer(); });
+document.addEventListener("keydown", e => { if(e.key==="Escape" && !$("#viewer").hidden) closeViewer(); });
+let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(placeDrawer, 120); });
+
+fetch("/api/products").then(r => r.json()).then(d => {
+  S.products = d.products;
+  chips(); render();
+  if(!d.productListLoaded && S.products.length){
+    $("#banner").innerHTML = (`<p class="msg" style="margin-bottom:16px"><b>No product list found.</b> Put products.xlsx or products.csv in the media folder to show product names and functions.</p>`);
+  }
+}).catch(() => { $("#list").innerHTML = `<p class="msg">Could not reach the Media page server. Check that it is running on mary.</p>`; });
+</script>
+</body>
+</html>
