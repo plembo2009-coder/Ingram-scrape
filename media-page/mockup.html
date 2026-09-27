@@ -1,0 +1,347 @@
+<title>Media Page Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#f3f5f7; --surface:#ffffff; --surface-2:#e9edf1; --ink:#16212b; --ink-2:#4a5866; --ink-3:#7a8794;
+  --line:#d5dce3; --accent:#0a6f8f; --accent-ink:#ffffff; --accent-soft:#dcedf3;
+  --spk:#0a6f8f; --icm:#7a5a12; --srv:#4d4a8a;
+  --spk-soft:#dcedf3; --icm-soft:#f3ead3; --srv-soft:#e6e5f4;
+  --paper:#ffffff; --shadow:0 1px 2px rgba(20,35,50,.06),0 6px 20px rgba(20,35,50,.08);
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0f151b; --surface:#17202a; --surface-2:#1f2a35; --ink:#e6edf3; --ink-2:#a9b6c2; --ink-3:#7d8b98;
+    --line:#2b3845; --accent:#4cb8d8; --accent-ink:#06202a; --accent-soft:#16323d;
+    --spk:#4cb8d8; --icm:#d9b25a; --srv:#a5a1ea;
+    --spk-soft:#16323d; --icm-soft:#33291a; --srv-soft:#25243f;
+    --paper:#f7f8fa; --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0f151b; --surface:#17202a; --surface-2:#1f2a35; --ink:#e6edf3; --ink-2:#a9b6c2; --ink-3:#7d8b98;
+  --line:#2b3845; --accent:#4cb8d8; --accent-ink:#06202a; --accent-soft:#16323d;
+  --spk:#4cb8d8; --icm:#d9b25a; --srv:#a5a1ea;
+  --spk-soft:#16323d; --icm-soft:#33291a; --srv-soft:#25243f;
+  --paper:#f7f8fa; --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5;margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* Mockup note */
+.note{background:var(--surface-2);color:var(--ink-2);font-size:13px;padding-block:8px;border-bottom:1px solid var(--line)}
+.note .wrap{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.note b{color:var(--ink);font-weight:600}
+
+/* Header */
+header.site{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+.head-row{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:16px}
+.brand{display:flex;align-items:baseline;gap:12px}
+.brand h1{margin:0;font-size:24px;font-weight:700;letter-spacing:-.01em;text-wrap:balance}
+.brand .count{font-family:var(--mono);font-size:12px;color:var(--ink-3)}
+.search{display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 10px;min-width:0;flex:0 1 280px}
+.search input{border:0;background:transparent;font:inherit;color:var(--ink);outline:none;width:100%;min-width:0}
+.search svg{flex:none;color:var(--ink-3)}
+
+.controls{display:flex;gap:24px 32px;flex-wrap:wrap;align-items:center;padding-block:0 14px}
+.ctl{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.ctl-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--bg)}
+.seg button{border:0;background:transparent;padding:6px 12px;cursor:pointer;font-size:14px;color:var(--ink-2)}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);font-weight:600}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 12px;cursor:pointer;font-size:14px;color:var(--ink-2);display:inline-flex;align-items:center;gap:6px}
+.chip .dot{width:8px;height:8px;border-radius:50%}
+.chip[aria-pressed="true"]{border-color:var(--ink);color:var(--ink);font-weight:600;background:var(--surface-2)}
+
+/* Grid */
+main{padding-block:24px 48px}
+.group-h{display:flex;align-items:baseline;gap:10px;margin:8px 0 12px}
+.group-h h2{margin:0;font-size:18px;font-weight:600}
+.group-h span{font-family:var(--mono);font-size:12px;color:var(--ink-3)}
+.group{margin-bottom:28px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;align-items:start}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;cursor:pointer;text-align:left;padding:0;display:flex;flex-direction:column;overflow:hidden;transition:border-color .15s, box-shadow .15s;width:100%}
+.card:hover{border-color:var(--ink-3)}
+.card[aria-expanded="true"]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.thumb{aspect-ratio:4/3;background:var(--paper);display:grid;place-items:center;border-bottom:1px solid var(--line);max-width:100%}
+.thumb svg{width:62%;height:auto}
+.meta{padding:10px 12px 12px;display:flex;flex-direction:column;gap:4px}
+.pn{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+.pname{font-size:14px;color:var(--ink-2);line-height:1.35}
+.tagrow{display:flex;justify-content:space-between;align-items:center;margin-top:4px}
+.tag{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:4px}
+.tag.spk{background:var(--spk-soft);color:var(--spk)} .tag.icm{background:var(--icm-soft);color:var(--icm)} .tag.srv{background:var(--srv-soft);color:var(--srv)}
+.fcount{font-size:12px;color:var(--ink-3);display:flex;align-items:center;gap:4px}
+.fcount svg{transition:transform .2s}
+.card[aria-expanded="true"] .fcount svg{transform:rotate(180deg)}
+
+/* Drop-down file panel */
+.drawer{grid-column:1/-1;background:var(--surface);border:1px solid var(--accent);border-radius:8px;padding:16px;box-shadow:var(--shadow);position:relative}
+.drawer::before{content:"";position:absolute;top:-7px;left:var(--caret,40px);width:12px;height:12px;background:var(--surface);border-left:1px solid var(--accent);border-top:1px solid var(--accent);transform:rotate(45deg)}
+.drawer-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.drawer-h h3{margin:0;font-size:16px;font-weight:600}
+.drawer-h h3 .pn{margin-right:8px}
+.path{font-family:var(--mono);font-size:12px;color:var(--ink-3)}
+.files{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.file{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--line);border-radius:6px;background:var(--bg);cursor:pointer;text-align:left;width:100%}
+.file:hover{border-color:var(--accent);background:var(--accent-soft)}
+.ficon{flex:none;width:34px;height:40px;border-radius:3px;display:grid;place-items:end center;padding-bottom:4px;font-family:var(--mono);font-size:9px;font-weight:600;color:#fff;position:relative}
+.ficon::after{content:"";position:absolute;top:0;right:0;border-style:solid;border-width:0 9px 9px 0;border-color:transparent var(--bg) rgba(255,255,255,.45) transparent}
+.ft-pdf{background:#b3372d} .ft-jpg{background:#2e7d4f} .ft-docx{background:#2b5aa8} .ft-zip{background:#6b6b6b} .ft-mp4{background:#7b3fa0} .ft-pptx{background:#c0561f}
+.finfo{display:flex;flex-direction:column;min-width:0}
+.fkind{font-size:14px;font-weight:600;color:var(--ink)}
+.fname{font-family:var(--mono);font-size:11.5px;color:var(--ink-3);overflow-wrap:anywhere}
+
+/* Viewer */
+.viewer{position:fixed;inset:0;background:rgba(10,18,26,.62);display:flex;align-items:center;justify-content:center;padding:24px 16px;z-index:20}
+.vbox{background:var(--surface);border-radius:10px;width:min(920px,100%);max-height:100%;display:flex;flex-direction:column;box-shadow:var(--shadow);overflow:hidden}
+.vbar{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.vtitle{flex:1 1 200px;min-width:0}
+.vtitle .fkind{display:block}
+.vactions{display:flex;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:7px 12px;cursor:pointer;font-size:14px;font-weight:500}
+.btn:hover{border-color:var(--ink-3)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.icon{padding:7px 9px}
+.vbody{background:var(--surface-2);padding:20px;overflow:auto;flex:1;display:flex;justify-content:center}
+.page{background:#fff;color:#1b2530;width:100%;max-width:560px;aspect-ratio:8.5/11;box-shadow:0 2px 10px rgba(0,0,0,.18);padding:6% 7%;display:flex;flex-direction:column;gap:10px;font-size:11px}
+.page .ph{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #0a6f8f;padding-bottom:8px}
+.page .ph b{font-size:16px}
+.page .ph span{font-family:var(--mono);font-size:10px;color:#555}
+.page .cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.page .imgbox{background:#eef2f5;border-radius:4px;aspect-ratio:1;display:grid;place-items:center}
+.page .imgbox svg{width:60%}
+.ln{height:6px;background:#dde3e8;border-radius:3px}
+.page table{border-collapse:collapse;width:100%;font-size:9.5px}
+.page td{border-bottom:1px solid #e1e6ea;padding:3px 0}
+.page td:last-child{text-align:right;font-family:var(--mono)}
+.photo{background:#fff;width:100%;max-width:620px;aspect-ratio:4/3;display:grid;place-items:center;box-shadow:0 2px 10px rgba(0,0,0,.18)}
+.photo svg{width:55%}
+.vfoot{padding:8px 16px;font-size:12px;color:var(--ink-3);border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:6px;font-size:14px;z-index:30;max-width:calc(100% - 32px)}
+
+/* Folder map */
+.map{border-top:1px solid var(--line);padding-block:24px 8px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:24px}
+.map h2{font-size:16px;margin:0 0 8px}
+.map p{margin:0;color:var(--ink-2);max-width:60ch}
+.tree{font-family:var(--mono);font-size:12.5px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;white-space:pre;color:var(--ink-2);margin:0}
+.tree b{color:var(--ink);font-weight:600}
+@media (max-width:720px){.map{grid-template-columns:1fr}.brand h1{font-size:21px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="note"><div class="wrap"><b>Mockup</b> Sample products and files. Click a product, then a file, to see how it works.</div></div>
+
+<header class="site">
+  <div class="wrap">
+    <div class="head-row">
+      <div class="brand"><h1>Media page</h1><span class="count" id="count"></span></div>
+      <label class="search" for="q">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Search 01 number or name">
+      </label>
+    </div>
+    <div class="controls">
+      <div class="ctl"><span class="ctl-label">Sort by</span>
+        <div class="seg" role="group" aria-label="Sort by">
+          <button id="sort-num" aria-pressed="true" data-sort="num">01 number</button>
+          <button id="sort-fn" aria-pressed="false" data-sort="fn">Function</button>
+        </div>
+      </div>
+      <div class="ctl"><span class="ctl-label">Show</span>
+        <div class="chips" id="chips"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="list"></div>
+
+  <section class="map">
+    <div>
+      <h2>Where the content comes from</h2>
+      <p>The site reads one local folder. Each subfolder is named with a product's 01 number, and every file inside it shows up in that product's drop-down. The file named <code>photo</code> becomes the thumbnail. Adding a folder adds a product. No login is required.</p>
+    </div>
+<pre class="tree"><b>media/</b>
+├── <b>011393/</b>
+│   ├── photo.jpg            → thumbnail
+│   ├── datasheet.pdf
+│   ├── manual.pdf
+│   └── marketing/
+│       ├── sell-sheet.pdf
+│       └── install-video.mp4
+├── <b>011402/</b>
+│   └── …
+└── <b>011146/</b>
+    └── …</pre>
+  </section>
+</main>
+
+<div class="viewer" id="viewer" hidden>
+  <div class="vbox" role="dialog" aria-modal="true" aria-labelledby="vkind">
+    <div class="vbar">
+      <span class="ficon" id="vicon"></span>
+      <div class="vtitle"><span class="fkind" id="vkind"></span><span class="fname" id="vname"></span></div>
+      <div class="vactions">
+        <button class="btn" id="vprint"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="7"/></svg>Print</button>
+        <button class="btn primary" id="vdl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 21h16"/></svg>Download</button>
+        <button class="btn icon" id="vclose" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      </div>
+    </div>
+    <div class="vbody" id="vbody"></div>
+    <div class="vfoot"><span id="vpath"></span><span id="vpages"></span></div>
+  </div>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+const ART = {
+  ceiling:`<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="#e9edf0" stroke="#9aa6b1" stroke-width="2"/><circle cx="50" cy="50" r="30" fill="#f7f9fa" stroke="#b9c3cb" stroke-width="1.5"/>${Array.from({length:37},(_,i)=>{const a=i*2.4,r=Math.sqrt(i)*4.2;return `<circle cx="${(50+r*Math.cos(a)).toFixed(1)}" cy="${(50+r*Math.sin(a)).toFixed(1)}" r="1.3" fill="#8b98a4"/>`}).join('')}</svg>`,
+  horn:`<svg viewBox="0 0 100 100"><path d="M18 40h14l34-18v56L32 60H18z" fill="#dfe5ea" stroke="#8b98a4" stroke-width="2"/><rect x="10" y="40" width="10" height="20" rx="2" fill="#9aa6b1"/><path d="M72 36c6 4 6 24 0 28M78 30c10 8 10 32 0 40" fill="none" stroke="#b9c3cb" stroke-width="3" stroke-linecap="round"/></svg>`,
+  wall:`<svg viewBox="0 0 100 100"><rect x="22" y="12" width="56" height="76" rx="4" fill="#e9edf0" stroke="#8b98a4" stroke-width="2"/><rect x="30" y="20" width="40" height="34" rx="2" fill="#d4dbe1"/>${Array.from({length:28},(_,i)=>`<circle cx="${34+(i%7)*5.3}" cy="${25+Math.floor(i/7)*7.5}" r="1.4" fill="#7f8c98"/>`).join('')}<rect x="38" y="64" width="24" height="14" rx="2" fill="#c7d0d7"/></svg>`,
+  intercom:`<svg viewBox="0 0 100 100"><rect x="26" y="8" width="48" height="84" rx="5" fill="#e3e8ec" stroke="#8b98a4" stroke-width="2"/><circle cx="50" cy="22" r="6" fill="#39424b"/><circle cx="50" cy="22" r="2.5" fill="#6d8fa6"/>${Array.from({length:12},(_,i)=>`<circle cx="${40+(i%4)*6.6}" cy="${38+Math.floor(i/4)*6}" r="1.4" fill="#7f8c98"/>`).join('')}<circle cx="50" cy="74" r="9" fill="#c9d1d8" stroke="#8b98a4" stroke-width="1.5"/><circle cx="50" cy="74" r="4" fill="#0a6f8f"/></svg>`,
+  keypad:`<svg viewBox="0 0 100 100"><rect x="24" y="6" width="52" height="88" rx="5" fill="#e3e8ec" stroke="#8b98a4" stroke-width="2"/><circle cx="50" cy="18" r="5" fill="#39424b"/>${Array.from({length:12},(_,i)=>`<rect x="${34+(i%3)*11}" y="${40+Math.floor(i/3)*11}" width="9" height="8" rx="1.5" fill="#c9d1d8" stroke="#8b98a4"/>`).join('')}${Array.from({length:8},(_,i)=>`<circle cx="${38+(i%4)*8}" cy="${28+Math.floor(i/4)*5}" r="1.3" fill="#7f8c98"/>`).join('')}</svg>`,
+  server:`<svg viewBox="0 0 100 100"><rect x="8" y="36" width="84" height="28" rx="3" fill="#dfe5ea" stroke="#8b98a4" stroke-width="2"/>${Array.from({length:4},(_,i)=>`<rect x="${16+i*9}" y="44" width="6" height="12" rx="1" fill="#9aa6b1"/>`).join('')}<circle cx="68" cy="50" r="2.5" fill="#2e9d5a"/><circle cx="76" cy="50" r="2.5" fill="#e0a526"/><circle cx="84" cy="50" r="2.5" fill="#9aa6b1"/></svg>`,
+  strobe:`<svg viewBox="0 0 100 100"><rect x="28" y="14" width="44" height="72" rx="4" fill="#e3e8ec" stroke="#8b98a4" stroke-width="2"/><rect x="36" y="22" width="28" height="18" rx="3" fill="#f2d7d4" stroke="#c96b60"/>${Array.from({length:20},(_,i)=>`<circle cx="${38+(i%5)*6}" cy="${52+Math.floor(i/5)*7}" r="1.4" fill="#7f8c98"/>`).join('')}</svg>`
+};
+
+const FN = {spk:"Speakers",icm:"Intercoms",srv:"Servers"};
+const FNORDER = ["spk","icm","srv"];
+
+// Sample catalog for the mockup. The real site builds this list from the folder names.
+const P = [
+  {pn:"011393",name:"SIP Talk-Back Ceiling Speaker",fn:"spk",art:"ceiling"},
+  {pn:"011402",name:"SIP Horn Speaker",fn:"spk",art:"horn"},
+  {pn:"011146",name:"SIP Paging Server",fn:"srv",art:"server"},
+  {pn:"011209",name:"SIP Outdoor Intercom",fn:"icm",art:"intercom"},
+  {pn:"011425",name:"SIP Wall Mount Speaker",fn:"spk",art:"wall"},
+  {pn:"011214",name:"SIP Intercom with Keypad",fn:"icm",art:"keypad"},
+  {pn:"011376",name:"SIP Speaker with Strobe",fn:"spk",art:"strobe"},
+  {pn:"011187",name:"SIP Emergency Intercom",fn:"icm",art:"intercom"},
+  {pn:"011300",name:"SIP Multicast Paging Gateway",fn:"srv",art:"server"},
+  {pn:"011394",name:"SIP Ceiling Speaker, Black",fn:"spk",art:"ceiling"},
+];
+function filesFor(p){
+  const base=[
+    {kind:"Product photo",file:"photo.jpg",t:"jpg",size:"1.8 MB"},
+    {kind:"Datasheet",file:`${p.pn}-datasheet.pdf`,t:"pdf",size:"412 KB",pages:2},
+    {kind:"Operations manual",file:`${p.pn}-manual.pdf`,t:"pdf",size:"6.3 MB",pages:74},
+    {kind:"Sell sheet",file:"marketing/sell-sheet.pdf",t:"pdf",size:"980 KB",pages:1},
+  ];
+  if(p.fn!=="srv") base.push({kind:"Install video",file:"marketing/install-video.mp4",t:"mp4",size:"48 MB"});
+  if(p.pn.endsWith("3")||p.fn==="icm") base.push({kind:"Spec text",file:"marketing/a-e-spec.docx",t:"docx",size:"64 KB",pages:3});
+  if(p.fn==="srv") base.push({kind:"Firmware notes",file:"release-notes.pdf",t:"pdf",size:"220 KB",pages:4});
+  base.push({kind:"Product images (hi-res)",file:"marketing/images.zip",t:"zip",size:"22 MB"});
+  return base;
+}
+
+const S={sort:"num",filter:"all",q:"",open:"011393"};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function chips(){
+  const opts=[["all","All"],...FNORDER.map(k=>[k,FN[k]])];
+  $("#chips").innerHTML=opts.map(([k,l])=>`<button class="chip" id="f-${k}" data-f="${k}" aria-pressed="${S.filter===k}">${k!=="all"?`<span class="dot" style="background:var(--${k})"></span>`:""}${l}</button>`).join("");
+}
+
+function card(p){
+  const n=filesFor(p).length;
+  return `<button class="card" data-pn="${p.pn}" aria-expanded="${S.open===p.pn}">
+    <div class="thumb">${ART[p.art]}</div>
+    <div class="meta"><span class="pn">${p.pn}</span><span class="pname">${esc(p.name)}</span>
+      <div class="tagrow"><span class="tag ${p.fn}">${FN[p.fn]}</span>
+      <span class="fcount">${n} files <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></span></div>
+    </div></button>`;
+}
+function drawer(p){
+  return `<div class="drawer" id="drawer">
+    <div class="drawer-h"><h3><span class="pn">${p.pn}</span>${esc(p.name)}</h3><span class="path">media/${p.pn}/</span></div>
+    <div class="files">${filesFor(p).map((f,i)=>`<button class="file" data-i="${i}"><span class="ficon ft-${f.t}">${f.t.toUpperCase()}</span><span class="finfo"><span class="fkind">${f.kind}</span><span class="fname">${esc(f.file)} · ${f.size}</span></span></button>`).join("")}</div>
+  </div>`;
+}
+
+function visible(){
+  const q=S.q.trim().toLowerCase();
+  return P.filter(p=>(S.filter==="all"||p.fn===S.filter)&&(!q||p.pn.includes(q)||p.name.toLowerCase().includes(q)))
+          .sort((a,b)=>a.pn.localeCompare(b.pn));
+}
+
+function render(){
+  const v=visible();
+  $("#count").textContent=`${v.length} of ${P.length} products`;
+  let groups;
+  if(S.sort==="fn") groups=FNORDER.map(k=>({h:FN[k],items:v.filter(p=>p.fn===k)})).filter(g=>g.items.length);
+  else groups=[{h:null,items:v}];
+  $("#list").innerHTML=groups.map(g=>`<section class="group">${g.h?`<div class="group-h"><h2>${g.h}</h2><span>${g.items.length}</span></div>`:""}<div class="grid">${g.items.map(card).join("")}</div></section>`).join("")
+    || `<p style="color:var(--ink-2)">No products match. Clear the search or pick another category.</p>`;
+  placeDrawer();
+}
+
+// Put the drop-down right below the row that holds the open card.
+function placeDrawer(){
+  document.getElementById("drawer")?.remove();
+  const c=document.querySelector(`.card[data-pn="${S.open}"]`);
+  if(!c) return;
+  const p=P.find(x=>x.pn===S.open);
+  const row=[...c.parentElement.children].filter(e=>e.classList.contains("card")&&e.offsetTop===c.offsetTop);
+  row[row.length-1].insertAdjacentHTML("afterend",drawer(p));
+  const d=document.getElementById("drawer");
+  d.style.setProperty("--caret",(c.offsetLeft-d.offsetLeft+c.offsetWidth/2-6)+"px");
+  d.querySelectorAll(".file").forEach(b=>b.onclick=()=>openFile(p,filesFor(p)[+b.dataset.i]));
+}
+
+function pdfPage(p,f){
+  const rows=[["Protocol","SIP 2.0"],["Power","PoE 802.3af"],["Audio codecs","G.711, G.722"],["Operating temp","0 to 50 °C"],["Part number",p.pn]];
+  return `<div class="page">
+    <div class="ph"><div><b>${esc(p.name)}</b><div style="color:#555">${f.kind}</div></div><span>${p.pn}</span></div>
+    <div class="cols"><div class="imgbox">${ART[p.art]}</div>
+      <div style="display:flex;flex-direction:column;gap:7px"><div class="ln" style="width:90%"></div><div class="ln"></div><div class="ln" style="width:80%"></div><div class="ln" style="width:95%"></div><div class="ln" style="width:60%"></div><div class="ln" style="width:85%"></div><div class="ln" style="width:70%"></div></div></div>
+    <b style="font-size:11px;margin-top:6px">Specifications</b>
+    <table>${rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join("")}</table>
+    <div style="display:flex;flex-direction:column;gap:7px;margin-top:6px"><div class="ln"></div><div class="ln" style="width:92%"></div><div class="ln" style="width:75%"></div></div>
+  </div>`;
+}
+function openFile(p,f){
+  $("#vicon").className=`ficon ft-${f.t}`; $("#vicon").textContent=f.t.toUpperCase();
+  $("#vkind").textContent=`${p.pn} · ${f.kind}`; $("#vname").textContent=`${f.file} · ${f.size}`;
+  $("#vpath").textContent=`media/${p.pn}/${f.file}`;
+  $("#vpages").textContent=f.pages?`Page 1 of ${f.pages}`:"";
+  let body;
+  if(f.t==="jpg") body=`<div class="photo">${ART[p.art]}</div>`;
+  else if(f.t==="pdf"||f.t==="docx") body=pdfPage(p,f);
+  else if(f.t==="mp4") body=`<div class="photo" style="background:#111;position:relative"><svg viewBox="0 0 100 100" style="width:18%"><circle cx="50" cy="50" r="46" fill="rgba(255,255,255,.15)" stroke="#fff" stroke-width="3"/><path d="M40 30v40l32-20z" fill="#fff"/></svg></div>`;
+  else body=`<div style="text-align:center;color:var(--ink-2);align-self:center;max-width:36ch"><p style="font-weight:600;color:var(--ink)">This file can't be previewed</p><p>ZIP archives download instead of opening. Use Download to save it.</p></div>`;
+  $("#vbody").innerHTML=body;
+  $("#vprint").hidden=(f.t==="zip"||f.t==="mp4");
+  $("#viewer").hidden=false; $("#vclose").focus();
+}
+let tt;
+function toast(m){const t=$("#toast");t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(()=>t.hidden=true,2600)}
+
+document.addEventListener("click",e=>{
+  const s=e.target.closest("[data-sort]"); if(s){S.sort=s.dataset.sort;document.querySelectorAll("[data-sort]").forEach(b=>b.setAttribute("aria-pressed",b===s));render();return}
+  const f=e.target.closest("[data-f]"); if(f){S.filter=f.dataset.f;chips();render();return}
+  const c=e.target.closest(".card"); if(c){S.open=S.open===c.dataset.pn?null:c.dataset.pn;document.querySelectorAll(".card").forEach(x=>x.setAttribute("aria-expanded",x.dataset.pn===S.open));placeDrawer();return}
+});
+$("#q").addEventListener("input",e=>{S.q=e.target.value;render()});
+$("#vclose").onclick=()=>$("#viewer").hidden=true;
+$("#viewer").addEventListener("click",e=>{if(e.target.id==="viewer")$("#viewer").hidden=true});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")$("#viewer").hidden=true});
+$("#vprint").onclick=()=>toast("On the real site, this opens the print dialog");
+$("#vdl").onclick=()=>toast("On the real site, this saves the file");
+let rt;addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(placeDrawer,120)});
+
+chips();render();
+</script>
